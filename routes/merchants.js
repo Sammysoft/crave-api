@@ -17,4 +17,5 @@ merchantRouter.post('/menu/lists', merchantController._getMeals);
 merchantRouter.post('/menu/add-category', merchantController._addCategory)
 merchantRouter.post('/menu/category', merchantController._getCategory)
 merchantRouter.post('/settings/bank', merchantController._addBankDetails)
+merchantRouter.post('/settings/bank/me', merchantController._getBank)
 export default merchantRouter;

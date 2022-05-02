@@ -4,7 +4,7 @@ const date = new Date().getDate()
 
 
 //Schema for Bank details
-const bankSchema = new mongoose.Schema({
+const bankSchema =  mongoose.Schema({
         accountname:{type: String},
         accountnumber:{type: String},
         bankname:{type: String},
@@ -31,19 +31,7 @@ const orderSchema = mongoose.Schema({
 })
 
 
-//Schema for each meal added
-// const mealSchema = mongoose.Schema({
-//     category:{type: String, required: true},
-//     mealname:{type: String, required: true},
-//     description:{type: String},
-//     mealincredients:{type: String},
-//     price:{type: Number},
-//     stockcount: {type: Number},
-//     size:{type: String},
-//     itemunit:{type: String},
-//     tags:{type: String},
-//     status:{type:Boolean, default: true}
-// })
+
 
 
 
@@ -87,9 +75,7 @@ const merchantSchema = mongoose.Schema({
     documents:{
         type: String
     },
-    bankdetails:[
-        bankSchema
-    ],
+    bankdetails:[bankSchema],
     profile:ownerSchema,
     orders: [orderSchema]
 })

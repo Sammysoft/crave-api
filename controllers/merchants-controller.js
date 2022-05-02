@@ -131,40 +131,11 @@ const merchantController = {
                 res.status(400).json({
                     msg:`Could not add ${mealname} To ${store}`
                 })
-        }
-
-        // Meal.find({storename: storename}, (err, meal)=>{
-        //         if(meal){
-        //             const { mealname, description, mealincredients, price, stockcount, size, itemunit, tags, category} = req.body;
-        //         const payload = {
-        //             mealname, description,
-        //             mealincredients, price, stockcount
-        //             ,size, itemunit,
-        //             tags, category
-        //         }
-        //         console.log(payload)
-        //         console.log(meal)
-        //         meal.meals.push(payload);
-        //         meal.meals.delete();
-        //        return ( res.status(200).json({
-        //             msg: `${mealname} Added to ${meal.storename}`
-        //         }))
-        //         }
-
-        //         if(err){
-        //             return ( res.status(400).json({
-        //                 msg: `Could not Add ${mealname} to ${meal.storename}`
-        //             }))
-        //         }
-
-        // })
+        }f
     },
 
 
     _getMeals:async(req,res,next)=>{
-        console.log(req.body)
-        // const {store}=req.params('store');
-        // console.log(store)
         Meal.find({store: req.body.store}, (err, meal)=>{
           if(!err){
             const availableMeals = meal
@@ -210,25 +181,40 @@ const merchantController = {
 
     _addBankDetails: async(req,res,next)=>{
         const { bankname, accountname, accountnumber, isPrimary, store } = req.body;
-
        try {
-        const merchant = await Merchant.find({storename: store})
-        console.log(merchant);
-
-        const payload = {
-            bankname, accountname, accountnumber, isPrimary
-        }
-
-        merchant.bankdetails.push(payload);
-        merchant.save();
-
-        res.status(200).json({msg: `Added A new Bank Account To ${store}`})
-
+        Merchant.findOne({storename: store}, (err, merchant)=>{
+            const payload = {
+                bankname, accountname, accountnumber, isPrimary
+            }
+            merchant.bankdetails.push(payload);
+            merchant.save();
+            res.status(200).json({msg: `Added A new Bank Account To ${store}`})
+        })
        } catch (error) {
             res.status(400).json({
                 msg: `Could not Add Bank Detail To ${store}`
             })
        }
+
+    },
+
+
+    _getBank: async(req,res,next)=>{
+        const {store} = req.body;
+        try {
+            Merchant.findOne({storename: store}, (err, merchant)=>{
+                if(merchant){
+                    console.log(merchant.bankdetails)
+                    res.status(200).json({
+                        data: merchant.bankdfetails
+                    })
+                }else{
+                    res.status(200).json({msg: 'A terrible error occured'})
+                }
+            })
+        } catch (error) {
+            res.status(400).json({msg: "An error occured!"})
+        }
 
     }
 
