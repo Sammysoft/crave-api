@@ -131,7 +131,7 @@ const merchantController = {
                 res.status(400).json({
                     msg:`Could not add ${mealname} To ${store}`
                 })
-        }f
+        }
     },
 
 
@@ -186,6 +186,7 @@ const merchantController = {
             const payload = {
                 bankname, accountname, accountnumber, isPrimary
             }
+            console.log(payload)
             merchant.bankdetails.push(payload);
             merchant.save();
             res.status(200).json({msg: `Added A new Bank Account To ${store}`})
@@ -203,19 +204,24 @@ const merchantController = {
         const {store} = req.body;
         try {
             Merchant.findOne({storename: store}, (err, merchant)=>{
-                if(merchant){
-                    console.log(merchant.bankdetails)
+                merchant
+                    console.log(merchant)
                     res.status(200).json({
-                        data: merchant.bankdfetails
+                        data: merchant.bankdetails
                     })
-                }else{
-                    res.status(200).json({msg: 'A terrible error occured'})
-                }
-            })
+                    err
+                    return res.status(400).json({msg: 'Could not get bank details'})
+                })
         } catch (error) {
             res.status(400).json({msg: "An error occured!"})
         }
 
+    },
+
+
+
+    _ownerProfile: async (req,res,next)=>{
+        const {fu  } = req.body;
     }
 
 }
