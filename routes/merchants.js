@@ -18,4 +18,5 @@ merchantRouter.post('/menu/add-category', merchantController._addCategory)
 merchantRouter.post('/menu/category', merchantController._getCategory)
 merchantRouter.post('/settings/bank', merchantController._addBankDetails)
 merchantRouter.post('/settings/bank/me', merchantController._getBank)
+merchantRouter.post('/settings/profile', merchantController._ownerProfile)
 export default merchantRouter;

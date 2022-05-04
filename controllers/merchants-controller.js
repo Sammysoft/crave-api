@@ -221,7 +221,48 @@ const merchantController = {
 
 
     _ownerProfile: async (req,res,next)=>{
-        const {fu  } = req.body;
+        const {fullname, email, phonenumber, password, store  } = req.body;
+        Merchant.findOne({storename: store}, (err, merchant)=>{
+            try {
+                bcrypt.genSalt(10, (err, salt)=>{
+                    !err
+                    bcrypt.hash(password, salt, async(err, hash)=>{
+                        !err
+                        const hashedPassword = hash;
+                        const payload = {
+                            fullname, email, phonenumber, hashedPassword
+                        }
+                        console.log(merchant)
+                        merchant.profile.push(payload)
+                        const newMerchantProfile = await merchant.save();
+                        res.status(200).json({
+                            msg: `Updated Your Profile ${newMerchantProfile.profile.fullname}`,
+                            data: newMerchantProfile
+                        })
+                    })
+                    })
+                
+            } catch (error) {
+                res.status(400).json({msg: 'Could not Add your Profile'})
+            }
+        })
+    },
+
+
+    _updateStoreDetails: async (req,res,next)=>{
+        const { storeupdateddescription, storeupdatedlocation, storeupdatedtagline } = req.body;
+        Merchant.findByIdAndUpdate({_id: req.params.id}, 
+                  {$set: {
+                      storelocation: storeupdatedlocation,
+                      storedescription: storeupdateddescription,
+                      storetagline: storeupdatedtagline
+                  }}, (err, merchant)=>{
+            try {
+                
+            } catch (error) {
+                res.status(400).json({msg: 'Error in updating Store'})
+            }
+        })
     }
 
 }
