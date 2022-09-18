@@ -31,12 +31,6 @@ const orderSchema = mongoose.Schema({
 })
 
 
-
-
-
-
-
-
 //Overall merchant schemma
 const merchantSchema = mongoose.Schema({
     storename:{type: String, required: true},
