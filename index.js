@@ -31,7 +31,7 @@ app.use(cors())
 //configuring passport authentification middleware
 
 app.use(session({
-    secret: process.env.SECRET,
+    secret: "crave_secret",
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({mongoUrl:"mongodb+srv://Sammysoft:tosam1999@cravestore.nwhnd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", collectionName: "sessions" } ),
