@@ -2,6 +2,7 @@ import express from 'express';
 import './config/db.js';
 import bodyParser from 'body-parser';
 import merchantRouter from './routes/merchants.js';
+import userRoute from './routes/users.js';
 import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
@@ -47,4 +48,5 @@ app.use(passport.session())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.use('/api/merchant', merchantRouter)
+app.use('/api/merchant', merchantRouter);
+app.use("/api/user", userRoute)
