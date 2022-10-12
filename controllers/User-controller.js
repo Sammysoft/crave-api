@@ -12,6 +12,7 @@ export const UserController = {
         phone_number,
         date_of_birth,
         username,
+        password
       } = req.body;
       if (
         !firstname ||
@@ -19,7 +20,8 @@ export const UserController = {
         !email ||
         !phone_number ||
         !date_of_birth ||
-        !username
+        !username ||
+        !password
       ) {
         res.status(400).json({ msg: "Fill In All Details!" });
       } else {
